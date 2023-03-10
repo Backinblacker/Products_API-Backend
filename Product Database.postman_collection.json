@@ -116,7 +116,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"name\": \"Women's Softball Cleats\"\r\n    }",
+					"raw": "    {\r\n        \"image\": \"www.google.com/url?sa=i&url=https%3A%2F%2Fphotodune.net%2Fitem%2Ftennis-balls%2F21316131&psig=AOvVaw0AJIiTAV8eS3S7PgMcJsau&ust=1678574048468000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCODN0uC10v0CFQAAAAAdAAAAABAE\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -124,7 +124,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/api/products/4",
+					"raw": "http://127.0.0.1:5000/api/products/8",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -136,7 +136,7 @@
 					"path": [
 						"api",
 						"products",
-						"4"
+						"8"
 					]
 				}
 			},
