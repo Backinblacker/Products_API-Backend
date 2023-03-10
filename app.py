@@ -38,9 +38,9 @@ class Product(db.Model):
 class ProductSchema(ma.Schema):
     id = fields.Integer(primary_key=True)
     name = fields.String(required=True)
-    desciption = fields.String(required=True)
+    description = fields.String(required=True)
     price = fields.String(required=True)
-    inventory_quantity = fields.String()
+    inventory_quantity = fields.String(required=True)
     
     @post_load
     def create_product(self, data, **kwargs):
@@ -58,7 +58,7 @@ class ProductListResource(Resource):
     def post(self):
         form_data = request.get_json()
         try:
-            new_product = product_schema(form_data)
+            new_product = product_schema.load(form_data)
             db.session.add(new_product)
             db.session.commit()
             return product_schema.dump(new_product), 201
@@ -68,11 +68,12 @@ class ProductListResource(Resource):
 class ProductResource(Resource):
     def get(self, product_id):
         product_from_db = Product.query.get_or_404(product_id)
-        return product_schema.dump(product_from_db)
+        return product_schema.dump(product_from_db), 200
     
     def delete(self, product_id):
         product_from_db = Product.query.get_or_404(product_id)
         db.session.delete(product_from_db)
+        db.session.commit()
         return '', 204
     
     def put(self, product_id):
@@ -85,7 +86,9 @@ class ProductResource(Resource):
             product_from_db.price =request.json['price']
         if "inventory_quantity"in request.json:
             product_from_db.inventory_quantity =request.json['inventory_quantity']
+        db.session.commit()
+        return product_schema.dump(product_from_db)
             
 # Routes
 api.add_resource(ProductListResource, '/api/products/')
-api.add_resource(ProductListResource, '/api/products/<int:pk>')
+api.add_resource(ProductResource, '/api/products/<int:product_id>')
